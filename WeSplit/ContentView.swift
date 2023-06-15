@@ -38,35 +38,37 @@ struct CheckView: View {
                     .frame(width: geo.size.width, height: geo.size.height, alignment: .center)
                     .opacity(1.0)
                 
-                NavigationView
+                
+                
+                VStack
                 {
-                    VStack
+                    Text("Check Splitter")
+                        .font(.title)
+                    List
                     {
-                        Form
-                        {
-                            TextField("Meal Price", value: $mPrice, format: .currency(code: Locale.current.currency?.identifier ?? "USD")).keyboardType(.decimalPad)
-                            
-                            Picker(selection: $mNumPeople, label: Text("Number of people"), content: {
-                                ForEach(1...maxPeople, id:\.self)
-                                {
-                                    number in
-                                    Text("\(number)").tag(number)
-                                }
-                            })
-                            Picker(selection: $mTipPer, label: Text("Tip Percentage (%)"), content:{
-                                ForEach(0 ... 100, id:\.self)
-                                {
-                                    number in Text("\(number)").tag(number)
-                                }
-                            })
-                        }.navigationTitle("Check Splitter")
+                        TextField("Meal Price", value: $mPrice, format: .currency(code: Locale.current.currency?.identifier ?? "USD")).keyboardType(.decimalPad)
                         
-                        
-                            Text("Total Price per Person: \(calculateTotalPricePerPerson(), specifier: "%.2f")")
-                                .font(.system(size: 20))
-                                .fontWeight(.bold)
-                        
+                        Picker(selection: $mNumPeople, label: Text("Number of people"), content: {
+                            ForEach(1...maxPeople, id:\.self)
+                            {
+                                number in
+                                Text("\(number)").tag(number)
+                            }
+                        })
+                        Picker(selection: $mTipPer, label: Text("Tip Percentage (%)"), content:{
+                            ForEach(0 ... 100, id:\.self)
+                            {
+                                number in Text("\(number)").tag(number)
+                            }
+                        })
                     }
+                    .listStyle(.plain)
+                                    
+                    
+                    Text("Total Price per Person: \(calculateTotalPricePerPerson(), specifier: "%.2f")")
+                        .font(.system(size: 20))
+                        .fontWeight(.bold)
+                        
                 }
             }
         }
